@@ -25,7 +25,7 @@ CATEGORY_QUERIES = {
     "17": "スポーツ 部活 大会"
 }
 
-def search_channels_by_category(youtube, category_id: str, max_items: int = 150) -> List[Dict[str, Any]]:
+def search_channels_by_category(youtube, category_id: str, max_items: int = 50) -> List[Dict[str, Any]]:
     """
     Search for channels related to a specific video category id.
     Uses safeSearch="strict" to ensure content is suitable.
