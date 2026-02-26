@@ -168,3 +168,23 @@ def get_recent_videos(channel_id: str, max_results: int = 10) -> List[Dict[str, 
         videos_data.extend(video_res.get("items", []))
         
     return videos_data
+
+def search_channels_by_keyword(keyword: str, max_results: int = 5) -> List[Dict[str, Any]]:
+    """
+    Search for specific channels by keyword/name for manual admin addition.
+    """
+    youtube = get_youtube_client()
+    request = youtube.search().list(
+        part="snippet",
+        type="channel",
+        q=keyword,
+        maxResults=max_results,
+        regionCode="JP"
+    )
+    response = request.execute()
+    channel_ids = [item["snippet"]["channelId"] for item in response.get("items", [])]
+    
+    if not channel_ids:
+        return []
+        
+    return get_channel_details(youtube, channel_ids)
